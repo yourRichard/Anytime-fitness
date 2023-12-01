@@ -1,9 +1,16 @@
-import React from 'react'
-import {Box,Stack,Typography,Button} from '@mui/material'
+import React, { useContext } from 'react'
+import {Box,Stack,Typography,Button,IconButton} from '@mui/material'
 import HeroBannerImage from '../assets/images/banner.png';
-
+import {useTheme} from '@mui/material'
+import { colorModeContext, tokens } from '../theme';
+import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 
 const HeroBanner = () => {
+
+    const theme = useTheme()
+    const colors = tokens(theme.palette.mode)
+    const colorMode = useContext(colorModeContext)
 
   return (
     <Box sx={{
@@ -12,7 +19,7 @@ const HeroBanner = () => {
     }} 
     position='relative'
     p='20px'>
-        <Typography color="#241c94" fontSize="25px" fontWeight="600">
+        <Typography color={colors.primary[100]} fontSize="25px" fontWeight="600">
             Fitness Club
         </Typography>
         <Typography 
@@ -31,7 +38,7 @@ const HeroBanner = () => {
         <Button variant='outlined' color='secondary'>Explore</Button>
         <Typography
         fontWeight="700"
-        color="#2a1c85"
+        color="#0008ff"
         sx={{
             opacity:0.1,
             display:{lg:'block',xs:'none'}
@@ -39,7 +46,18 @@ const HeroBanner = () => {
         fontSize="200px">
             Exercises
         </Typography>
-        <img src={HeroBannerImage} alt="banner" style={{position:'absolute',right:'40px',top:'0px',width:'700px',height:'900px',marginTop:'-250px'}} />
+        <Stack direction="row">
+        <img src={HeroBannerImage} alt="banner" style={{position:'absolute',right:'70px',top:'0px',width:'680px',height:'900px',marginTop:'-250px'}} />
+        <IconButton onClick={colorMode.toggleColorMode}
+       style={{position:'absolute',marginTop:'-830px',marginLeft:'74.6rem',background:'#566f9c  ',borderRadius:'3px' }}>
+          {theme.palette.mode === "dark" ? (
+            <LightModeOutlinedIcon sx={{fontSize:40}} />
+          ) : (
+            < DarkModeOutlinedIcon sx={{fontSize:40}}/>
+          )}
+        </IconButton>
+        </Stack>
+        
     </Box>
   )
 }
